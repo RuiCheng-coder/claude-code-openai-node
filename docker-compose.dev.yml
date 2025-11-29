@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  claude-proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: claude-proxy-server-dev
+    ports:
+      - "8082:8082"
+    environment:
+      - NODE_ENV=development
+      - PORT=8082
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npx nodemon index.js
+    networks:
+      - claude-proxy-network
+
+networks:
+  claude-proxy-network:
+    driver: bridge
