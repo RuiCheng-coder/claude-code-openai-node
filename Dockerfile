@@ -22,11 +22,11 @@ RUN chown -R claude-code-openai-node:nodejs /app
 USER claude-code-openai-node
 
 # 暴露端口
-EXPOSE 3000
+EXPOSE 8082
 
 # 健康检查
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:3000/health || exit 1
+  CMD curl -f http://localhost:8082/health || exit 1
 
 # 启动应用
 CMD ["npm", "start"]
